@@ -1,1 +1,3355 @@
-website
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>AiVibe</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#030303;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
+
+
+/* =====================================================
+   ATMOSPHERE
+===================================================== */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:50;
+  opacity:.035;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.8) 0px,
+      rgba(255,255,255,.8) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-20;
+
+  background:
+    radial-gradient(
+      circle at 50% 25%,
+      rgba(150,150,150,.12),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 90% 75%,
+      rgba(150,20,20,.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 5% 80%,
+      rgba(90,90,90,.08),
+      transparent 30%
+    );
+}
+
+
+/* =====================================================
+   GLASS
+===================================================== */
+
+.glass{
+  position:fixed;
+  pointer-events:none;
+  z-index:-1;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.20),
+      rgba(255,255,255,.025) 38%,
+      rgba(255,255,255,.12) 55%,
+      rgba(255,255,255,.015) 78%,
+      rgba(255,255,255,.08)
+    );
+
+  border:1px solid rgba(255,255,255,.32);
+
+  box-shadow:
+    inset 2px 2px 8px rgba(255,255,255,.15),
+    inset -4px -5px 14px rgba(0,0,0,.3),
+    0 0 28px rgba(180,180,180,.05);
+
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+
+  opacity:.36;
+}
+
+.glass::before{
+  content:"";
+  position:absolute;
+
+  width:24%;
+  height:190%;
+
+  left:-90%;
+  top:-45%;
+
+  transform:rotate(25deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.72),
+      rgba(180,180,180,.35),
+      transparent
+    );
+
+  filter:blur(2px);
+
+  animation:
+    lightSweep
+    var(--shine-speed)
+    ease-in-out
+    infinite;
+
+  animation-delay:var(--shine-delay);
+}
+
+.glass::after{
+  content:"";
+  position:absolute;
+  inset:4%;
+
+  background:
+    linear-gradient(
+      117deg,
+      transparent 47%,
+      rgba(255,255,255,.42) 48%,
+      transparent 49%
+    ),
+    linear-gradient(
+      32deg,
+      transparent 54%,
+      rgba(255,255,255,.24) 55%,
+      transparent 56%
+    ),
+    linear-gradient(
+      155deg,
+      transparent 66%,
+      rgba(255,255,255,.18) 67%,
+      transparent 68%
+    );
+
+  opacity:.7;
+}
+
+
+/* =====================================================
+   GLASS POSITIONS
+===================================================== */
+
+.glass1{
+  width:82px;
+  height:126px;
+  left:7%;
+  top:17%;
+
+  clip-path:
+    polygon(
+      8% 4%,67% 0,94% 19%,78% 43%,
+      100% 78%,61% 100%,30% 84%,
+      0 91%,13% 51%,0 26%
+    );
+
+  --shine-speed:8s;
+  --shine-delay:-1s;
+
+  animation:shard1 13s ease-in-out infinite;
+}
+
+.glass2{
+  width:55px;
+  height:88px;
+  right:13%;
+  top:15%;
+
+  opacity:.29;
+
+  clip-path:
+    polygon(
+      15% 0,86% 10%,100% 48%,69% 68%,
+      88% 100%,28% 87%,0 55%,12% 25%
+    );
+
+  --shine-speed:11s;
+  --shine-delay:-5s;
+
+  animation:shard2 17s ease-in-out infinite;
+}
+
+.glass3{
+  width:105px;
+  height:58px;
+  right:25%;
+  top:46%;
+
+  opacity:.24;
+
+  clip-path:
+    polygon(
+      0 18%,25% 4%,52% 15%,78% 0,
+      100% 28%,87% 72%,60% 100%,
+      30% 82%,7% 94%
+    );
+
+  --shine-speed:9s;
+  --shine-delay:-3s;
+
+  animation:shard3 19s ease-in-out infinite;
+}
+
+.glass4{
+  width:48px;
+  height:93px;
+  left:22%;
+  bottom:20%;
+
+  opacity:.27;
+
+  clip-path:
+    polygon(
+      15% 0,82% 8%,100% 39%,76% 68%,
+      91% 100%,28% 90%,0 57%,12% 25%
+    );
+
+  --shine-speed:13s;
+  --shine-delay:-8s;
+
+  animation:shard4 15s ease-in-out infinite;
+}
+
+.glass5{
+  width:64px;
+  height:43px;
+  right:7%;
+  bottom:28%;
+
+  opacity:.22;
+
+  clip-path:
+    polygon(
+      0 27%,35% 0,100% 17%,79% 76%,
+      42% 100%,8% 71%
+    );
+
+  --shine-speed:10s;
+  --shine-delay:-6s;
+
+  animation:shard5 21s ease-in-out infinite;
+}
+
+.glass6{
+  width:28px;
+  height:44px;
+  left:34%;
+  top:18%;
+
+  opacity:.25;
+
+  clip-path:
+    polygon(
+      10% 0,85% 12%,100% 70%,58% 100%,0 76%
+    );
+
+  --shine-speed:7s;
+  --shine-delay:-2s;
+
+  animation:shard6 12s ease-in-out infinite;
+}
+
+.glass7{
+  width:35px;
+  height:22px;
+  left:43%;
+  top:31%;
+
+  opacity:.20;
+
+  clip-path:
+    polygon(
+      0 22%,72% 0,100% 62%,35% 100%
+    );
+
+  --shine-speed:8s;
+  --shine-delay:-5s;
+
+  animation:shard7 16s ease-in-out infinite;
+}
+
+.glass8{
+  width:23px;
+  height:37px;
+  right:37%;
+  top:20%;
+
+  opacity:.28;
+
+  clip-path:
+    polygon(
+      20% 0,100% 25%,72% 100%,0 70%
+    );
+
+  --shine-speed:9s;
+  --shine-delay:-4s;
+
+  animation:shard8 14s ease-in-out infinite;
+}
+
+.glass9{
+  width:42px;
+  height:27px;
+  right:31%;
+  top:67%;
+
+  opacity:.18;
+
+  clip-path:
+    polygon(
+      0 30%,30% 0,100% 20%,78% 100%,20% 80%
+    );
+
+  --shine-speed:12s;
+  --shine-delay:-7s;
+
+  animation:shard9 18s ease-in-out infinite;
+}
+
+.glass10{
+  width:30px;
+  height:48px;
+  left:10%;
+  top:60%;
+
+  opacity:.23;
+
+  clip-path:
+    polygon(
+      12% 0,80% 10%,100% 55%,60% 100%,0 72%
+    );
+
+  --shine-speed:10s;
+  --shine-delay:-1s;
+
+  animation:shard10 15s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   GLASS ANIMATION
+===================================================== */
+
+@keyframes shard1{
+  0%{transform:translate(0,0) rotate(8deg);}
+  24%{transform:translate(19px,-13px) rotate(-4deg);}
+  48%{transform:translate(-8px,-37px) rotate(17deg);}
+  71%{transform:translate(25px,-21px) rotate(-9deg);}
+  84%{transform:translate(-12px,-48px) rotate(5deg);}
+  100%{transform:translate(0,0) rotate(8deg);}
+}
+
+@keyframes shard2{
+  0%{transform:translate(0,0) rotate(-15deg);}
+  31%{transform:translate(-27px,18px) rotate(11deg);}
+  58%{transform:translate(14px,-25px) rotate(-28deg);}
+  77%{transform:translate(-9px,-43px) rotate(4deg);}
+  100%{transform:translate(0,0) rotate(-15deg);}
+}
+
+@keyframes shard3{
+  0%{transform:translate(0,0) rotate(12deg);}
+  27%{transform:translate(35px,-12px) rotate(-7deg);}
+  51%{transform:translate(-22px,-31px) rotate(24deg);}
+  76%{transform:translate(18px,12px) rotate(-14deg);}
+  100%{transform:translate(0,0) rotate(12deg);}
+}
+
+@keyframes shard4{
+  0%{transform:translate(0,0) rotate(-30deg);}
+  35%{transform:translate(-14px,-26px) rotate(-5deg);}
+  62%{transform:translate(22px,-8px) rotate(-42deg);}
+  81%{transform:translate(-18px,-38px) rotate(7deg);}
+  100%{transform:translate(0,0) rotate(-30deg);}
+}
+
+@keyframes shard5{
+  0%{transform:translate(0,0) rotate(32deg);}
+  22%{transform:translate(-24px,15px) rotate(8deg);}
+  48%{transform:translate(9px,-28px) rotate(47deg);}
+  72%{transform:translate(-15px,-12px) rotate(19deg);}
+  100%{transform:translate(0,0) rotate(32deg);}
+}
+
+@keyframes shard6{
+  0%{transform:translate(0,0) rotate(10deg);}
+  35%{transform:translate(20px,-28px) rotate(-18deg);}
+  70%{transform:translate(-12px,-8px) rotate(27deg);}
+  100%{transform:translate(0,0) rotate(10deg);}
+}
+
+@keyframes shard7{
+  0%{transform:translate(0,0) rotate(-8deg);}
+  40%{transform:translate(-25px,17px) rotate(22deg);}
+  72%{transform:translate(12px,-30px) rotate(-12deg);}
+  100%{transform:translate(0,0) rotate(-8deg);}
+}
+
+@keyframes shard8{
+  0%{transform:translate(0,0) rotate(5deg);}
+  30%{transform:translate(18px,-20px) rotate(31deg);}
+  65%{transform:translate(-16px,-41px) rotate(-9deg);}
+  100%{transform:translate(0,0) rotate(5deg);}
+}
+
+@keyframes shard9{
+  0%{transform:translate(0,0) rotate(-5deg);}
+  35%{transform:translate(-20px,-17px) rotate(19deg);}
+  70%{transform:translate(27px,-35px) rotate(-23deg);}
+  100%{transform:translate(0,0) rotate(-5deg);}
+}
+
+@keyframes shard10{
+  0%{transform:translate(0,0) rotate(14deg);}
+  28%{transform:translate(16px,-31px) rotate(-12deg);}
+  64%{transform:translate(-19px,-14px) rotate(28deg);}
+  100%{transform:translate(0,0) rotate(14deg);}
+}
+
+@keyframes lightSweep{
+
+  0%{
+    left:-90%;
+    opacity:0;
+  }
+
+  20%{
+    opacity:0;
+  }
+
+  35%{
+    opacity:.8;
+  }
+
+  52%{
+    left:130%;
+    opacity:0;
+  }
+
+  100%{
+    left:130%;
+    opacity:0;
+  }
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+
+  position:fixed;
+
+  top:0;
+  left:0;
+  right:0;
+
+  height:75px;
+
+  padding:0 6vw;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:
+    rgba(0,0,0,.58);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  z-index:100;
+}
+
+.logo{
+
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:-1px;
+}
+
+.logo span{
+  font-weight:400;
+}
+
+nav{
+  display:flex;
+  gap:32px;
+}
+
+nav a{
+
+  color:#777;
+
+  text-decoration:none;
+
+  font-size:10px;
+
+  letter-spacing:2px;
+
+  transition:.3s;
+}
+
+nav a:hover{
+  color:#fff;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+
+  padding:120px 8vw;
+
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-content{
+  position:relative;
+  z-index:3;
+  max-width:1000px;
+}
+
+.eyebrow{
+
+  color:#a2a2a2;
+
+  font-size:10px;
+
+  font-weight:bold;
+
+  letter-spacing:5px;
+
+  margin-bottom:22px;
+}
+
+.hero h1{
+
+  font-size:
+    clamp(55px,10vw,140px);
+
+  line-height:.85;
+
+  letter-spacing:-8px;
+
+  margin-bottom:30px;
+}
+
+.hero h1 span{
+  color:#777;
+}
+
+.hero p{
+
+  max-width:500px;
+
+  color:#777;
+
+  font-size:18px;
+
+  line-height:1.7;
+}
+
+.buttons{
+
+  display:flex;
+  gap:12px;
+  margin-top:35px;
+}
+
+.primary,
+.secondary{
+
+  display:inline-block;
+
+  padding:16px 25px;
+
+  border-radius:10px;
+
+  border:1px solid #333;
+
+  font-size:11px;
+
+  font-weight:bold;
+
+  letter-spacing:1px;
+
+  text-decoration:none;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.primary{
+
+  background:#fff;
+  color:#000;
+}
+
+.secondary{
+
+  background:
+    rgba(255,255,255,.04);
+
+  color:#fff;
+}
+
+.primary:hover,
+.secondary:hover{
+
+  transform:translateY(-3px);
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.discover,
+.genres,
+.about{
+
+  padding:120px 7vw;
+
+  position:relative;
+  z-index:3;
+}
+
+h2{
+
+  font-size:
+    clamp(50px,7vw,90px);
+
+  letter-spacing:-5px;
+}
+
+.section-title{
+  margin-bottom:45px;
+}
+
+
+/* =====================================================
+   TRACKS
+===================================================== */
+
+.tracks{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:18px;
+}
+
+.track{
+
+  padding:10px;
+
+  background:
+    rgba(255,255,255,.025);
+
+  border:
+    1px solid
+    rgba(255,255,255,.09);
+
+  border-radius:16px;
+
+  transition:.35s;
+
+  backdrop-filter:blur(10px);
+}
+
+.track:hover{
+
+  transform:
+    translateY(-8px);
+
+  border-color:
+    rgba(160,60,60,.5);
+
+  box-shadow:
+    0 20px 60px
+    rgba(120,20,20,.08);
+}
+
+.cover{
+
+  height:270px;
+
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  border-radius:11px;
+
+  font-size:32px;
+  color:#777;
+}
+
+.cover::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:180px;
+  height:180px;
+
+  border-radius:50%;
+
+  background:
+    rgba(180,30,30,.12);
+
+  filter:blur(15px);
+
+  animation:pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse{
+
+  0%,100%{
+    transform:scale(.9);
+    opacity:.4;
+  }
+
+  50%{
+    transform:scale(1.2);
+    opacity:.8;
+  }
+}
+
+.cover1{
+  background:
+    linear-gradient(
+      135deg,
+      #080808,
+      #3c2020
+    );
+}
+
+.cover2{
+  background:
+    linear-gradient(
+      135deg,
+      #080909,
+      #383838
+    );
+}
+
+.cover3{
+  background:
+    linear-gradient(
+      135deg,
+      #100909,
+      #512929
+    );
+}
+
+.cover4{
+  background:
+    linear-gradient(
+      135deg,
+      #080808,
+      #444
+    );
+}
+
+.cover span{
+  position:relative;
+  z-index:2;
+}
+
+.play{
+
+  position:absolute;
+
+  right:13px;
+  bottom:13px;
+
+  width:46px;
+  height:46px;
+
+  border:0;
+  border-radius:50%;
+
+  background:#fff;
+  color:#000;
+
+  z-index:3;
+
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.play:hover{
+  transform:scale(1.08);
+}
+
+.track h3{
+  margin-top:15px;
+  font-size:15px;
+}
+
+.track p{
+  margin-top:7px;
+  color:#666;
+  font-size:11px;
+}
+
+
+/* =====================================================
+   GENRES
+===================================================== */
+
+.genres{
+  min-height:60vh;
+}
+
+.genre-list{
+
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:12px;
+
+  margin-top:40px;
+}
+
+.genre-list button{
+
+  padding:16px 25px;
+
+  border-radius:50px;
+
+  border:1px solid #222;
+
+  background:
+    rgba(255,255,255,.025);
+
+  color:#888;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.genre-list button:hover{
+
+  background:#fff;
+  color:#000;
+
+  transform:translateY(-3px);
+}
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about{
+  min-height:70vh;
+}
+
+.about h2{
+  margin-bottom:35px;
+}
+
+.about p{
+
+  max-width:650px;
+
+  color:#777;
+
+  font-size:19px;
+
+  line-height:1.8;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+  padding:60px 7vw 150px;
+
+  border-top:
+    1px solid #171717;
+
+  color:#444;
+
+  font-size:11px;
+
+  letter-spacing:2px;
+
+  position:relative;
+  z-index:3;
+}
+
+
+/* =====================================================
+   BOTTOM PLAYER
+===================================================== */
+
+.music-player{
+
+  position:fixed;
+
+  left:50%;
+  bottom:18px;
+
+  transform:
+    translateX(-50%);
+
+  width:
+    min(920px,92vw);
+
+  min-height:82px;
+
+  padding:12px 18px;
+
+  display:grid;
+
+  grid-template-columns:
+    1.5fr
+    auto
+    2fr;
+
+  align-items:center;
+
+  gap:18px;
+
+  background:
+    rgba(12,12,14,.82);
+
+  border:
+    1px solid
+    rgba(255,255,255,.13);
+
+  border-radius:18px;
+
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+
+  box-shadow:
+    0 20px 70px
+    rgba(0,0,0,.55);
+
+  z-index:200;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.music-player:hover{
+
+  border-color:
+    rgba(255,255,255,.22);
+
+  background:
+    rgba(18,18,20,.9);
+}
+
+
+/* INFO */
+
+.player-info{
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  min-width:0;
+}
+
+.player-cover{
+
+  width:48px;
+  height:48px;
+
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #242424,
+      #210909
+    );
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  border:
+    1px solid
+    rgba(255,255,255,.15);
+
+  color:#aaa;
+
+  font-size:20px;
+
+  overflow:hidden;
+}
+
+.player-cover.has-art{
+  color:transparent;
+}
+
+.player-info strong{
+
+  display:block;
+
+  max-width:210px;
+
+  overflow:hidden;
+
+  white-space:nowrap;
+
+  text-overflow:ellipsis;
+
+  font-size:12px;
+}
+
+.player-info small{
+
+  display:block;
+
+  margin-top:5px;
+
+  color:#666;
+
+  font-size:9px;
+}
+
+
+/* CONTROLS */
+
+.player-controls{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  position:relative;
+
+  z-index:5;
+}
+
+.player-controls button{
+
+  width:32px;
+  height:32px;
+
+  position:relative;
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.035);
+
+  color:#aaa;
+
+  cursor:pointer;
+
+  transition:.25s;
+
+  font-size:0;
+}
+
+#prevBtn::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:7px;
+  height:7px;
+
+  border-left:1px solid #aaa;
+  border-bottom:1px solid #aaa;
+
+  transform:rotate(45deg);
+
+  left:13px;
+  top:11px;
+}
+
+#nextBtn::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:7px;
+  height:7px;
+
+  border-right:1px solid #aaa;
+  border-top:1px solid #aaa;
+
+  transform:rotate(45deg);
+
+  left:10px;
+  top:11px;
+}
+
+.player-controls button:hover{
+
+  background:
+    rgba(255,255,255,.10);
+
+  color:#fff;
+}
+
+.player-controls .main-play{
+
+  width:42px;
+  height:42px;
+
+  background:#fff;
+  color:#000;
+
+  border:0;
+
+  font-size:13px;
+}
+
+
+/* PROGRESS */
+
+.progress-area{
+
+  display:flex;
+  align-items:center;
+
+  gap:9px;
+
+  min-width:0;
+}
+
+.progress-area span{
+
+  color:#666;
+
+  font-size:9px;
+
+  min-width:28px;
+}
+
+#progress{
+
+  width:100%;
+  height:3px;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #a83232,
+      #555
+    );
+
+  border-radius:20px;
+
+  cursor:pointer;
+}
+
+#progress::-webkit-slider-thumb{
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  background:#ddd;
+}
+
+#progress::-moz-range-thumb{
+
+  width:10px;
+  height:10px;
+
+  border:0;
+
+  border-radius:50%;
+
+  background:#ddd;
+}
+
+
+/* =====================================================
+   FULL SCREEN PLAYER
+===================================================== */
+
+.full-player{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:1000;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:
+    calc(30px + env(safe-area-inset-top))
+    calc(30px + env(safe-area-inset-right))
+    calc(30px + env(safe-area-inset-bottom))
+    calc(30px + env(safe-area-inset-left));
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(100,100,100,.13),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(130,20,20,.18),
+      transparent 38%
+    ),
+    rgba(2,2,3,.96);
+
+  backdrop-filter:blur(30px);
+  -webkit-backdrop-filter:blur(30px);
+
+  opacity:0;
+  visibility:hidden;
+
+  transform:scale(.98);
+
+  transition:
+    opacity .35s ease,
+    transform .35s ease,
+    visibility .35s;
+}
+
+.full-player.open{
+
+  opacity:1;
+  visibility:visible;
+
+  transform:scale(1);
+}
+
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
+
+.close-player{
+
+  position:absolute;
+
+  top:
+    calc(
+      16px +
+      env(safe-area-inset-top)
+    );
+
+  right:
+    calc(
+      16px +
+      env(safe-area-inset-right)
+    );
+
+  width:46px;
+  height:46px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid
+    rgba(255,255,255,.15);
+
+  border-radius:50%;
+
+  background:
+    rgba(15,15,15,.82);
+
+  color:#aaa;
+
+  cursor:pointer;
+
+  font-size:27px;
+
+  font-weight:200;
+
+  line-height:1;
+
+  z-index:20;
+
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+
+  transition:
+    background .25s,
+    color .25s,
+    transform .25s;
+}
+
+.close-player:hover{
+
+  background:#fff;
+
+  color:#000;
+
+  transform:rotate(90deg);
+}
+
+.close-player:active{
+
+  transform:scale(.9);
+}
+
+
+/* =====================================================
+   FULL PLAYER CONTENT
+===================================================== */
+
+.full-player-content{
+
+  width:
+    min(470px,90vw);
+
+  text-align:center;
+
+  position:relative;
+  z-index:3;
+}
+
+
+/* =====================================================
+   BIG COVER
+===================================================== */
+
+.big-cover{
+
+  width:
+    min(370px,75vw);
+
+  aspect-ratio:1;
+
+  margin:0 auto 35px;
+
+  border-radius:24px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #151515,
+      #3a1515,
+      #070707
+    );
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  border:
+    1px solid
+    rgba(255,255,255,.15);
+
+  box-shadow:
+    0 35px 100px
+    rgba(0,0,0,.65),
+
+    inset 0 0 70px
+    rgba(170,30,30,.10);
+}
+
+.big-cover::before{
+
+  content:"";
+
+  width:50%;
+  height:50%;
+
+  position:absolute;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(220,220,220,.15),
+      rgba(130,20,20,.12),
+      transparent 70%
+    );
+
+  filter:blur(10px);
+
+  animation:
+    bigPulse 4s
+    ease-in-out
+    infinite;
+}
+
+.big-cover.has-art::before{
+  display:none;
+}
+
+.big-cover.has-art span{
+  display:none;
+}
+
+@keyframes bigPulse{
+
+  0%,100%{
+    transform:scale(.8);
+    opacity:.5;
+  }
+
+  50%{
+    transform:scale(1.15);
+    opacity:1;
+  }
+}
+
+.big-cover span{
+
+  position:relative;
+  z-index:2;
+
+  font-size:60px;
+
+  color:#777;
+
+  font-weight:200;
+}
+
+
+/* =====================================================
+   FULL PLAYER TEXT
+===================================================== */
+
+.full-player-content .eyebrow{
+
+  margin-bottom:12px;
+
+  color:#8f8f8f;
+}
+
+.full-player-content h2{
+
+  font-size:34px;
+
+  letter-spacing:-1px;
+
+  margin-bottom:8px;
+
+  max-width:100%;
+
+  overflow:hidden;
+
+  white-space:nowrap;
+
+  text-overflow:ellipsis;
+}
+
+.full-player-content p{
+
+  color:#666;
+
+  font-size:12px;
+}
+
+
+/* =====================================================
+   FULL PROGRESS
+===================================================== */
+
+.full-progress{
+
+  margin-top:35px;
+}
+
+.full-progress-times{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  color:#666;
+
+  font-size:10px;
+
+  margin-bottom:9px;
+}
+
+#fullProgress{
+
+  width:100%;
+  height:4px;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #a83232,
+      #555
+    );
+
+  border-radius:20px;
+
+  cursor:pointer;
+}
+
+#fullProgress::-webkit-slider-thumb{
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  width:13px;
+  height:13px;
+
+  border-radius:50%;
+
+  background:#eee;
+}
+
+#fullProgress::-moz-range-thumb{
+
+  width:13px;
+  height:13px;
+
+  border:0;
+
+  border-radius:50%;
+
+  background:#eee;
+}
+
+
+/* =====================================================
+   FULL CONTROLS
+===================================================== */
+
+.full-controls{
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:18px;
+
+  margin-top:30px;
+}
+
+.full-controls button{
+
+  width:48px;
+  height:48px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.12);
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:#aaa;
+
+  cursor:pointer;
+
+  transition:.25s;
+
+  font-size:0;
+
+  position:relative;
+}
+
+.full-controls button:hover{
+
+  background:
+    rgba(255,255,255,.12);
+
+  color:#fff;
+
+  transform:scale(1.05);
+}
+
+
+/* FULL ARROWS */
+
+#fullPrev::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:10px;
+  height:10px;
+
+  border-left:1px solid #aaa;
+  border-bottom:1px solid #aaa;
+
+  transform:rotate(45deg);
+
+  left:19px;
+  top:17px;
+}
+
+#fullNext::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:10px;
+  height:10px;
+
+  border-right:1px solid #aaa;
+  border-top:1px solid #aaa;
+
+  transform:rotate(45deg);
+
+  left:16px;
+  top:17px;
+}
+
+
+/* BIG PLAY */
+
+#fullPlay{
+
+  width:65px;
+  height:65px;
+
+  background:#eee;
+
+  color:#050505;
+
+  border:0;
+
+  font-size:18px;
+}
+
+#fullPlay:hover{
+
+  background:#fff;
+
+  box-shadow:
+    0 0 40px
+    rgba(180,180,180,.15);
+}
+
+
+/* =====================================================
+   FULL UPLOAD
+===================================================== */
+
+.full-upload{
+
+  margin-top:30px;
+
+  padding:13px 25px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.15);
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,.04);
+
+  color:#999;
+
+  font-size:10px;
+
+  letter-spacing:2px;
+
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.full-upload:hover{
+
+  background:#fff;
+  color:#000;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+  nav{
+    display:none;
+  }
+
+  .hero{
+    padding:120px 25px 100px;
+  }
+
+  .hero h1{
+
+    font-size:58px;
+
+    letter-spacing:-5px;
+  }
+
+  .discover,
+  .genres,
+  .about{
+
+    padding:80px 20px;
+  }
+
+  .tracks{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+    gap:9px;
+  }
+
+  .cover{
+    height:175px;
+  }
+
+
+  .music-player{
+
+    width:94vw;
+
+    grid-template-columns:
+      1fr auto;
+
+    gap:10px;
+
+    padding:12px;
+  }
+
+  .player-info{
+    grid-column:1;
+  }
+
+  .player-controls{
+
+    grid-column:2;
+    grid-row:1;
+  }
+
+  .progress-area{
+
+    grid-column:1 / 3;
+    grid-row:2;
+  }
+
+  .full-player{
+
+    padding:
+      calc(20px + env(safe-area-inset-top))
+      calc(20px + env(safe-area-inset-right))
+      calc(20px + env(safe-area-inset-bottom))
+      calc(20px + env(safe-area-inset-left));
+
+  }
+
+  .big-cover{
+    width:min(320px,78vw);
+    margin-bottom:28px;
+  }
+
+  .full-player-content h2{
+    font-size:27px;
+  }
+
+}
+
+
+@media(max-width:500px){
+
+  .hero h1{
+
+    font-size:50px;
+
+    letter-spacing:-4px;
+  }
+
+  .tracks{
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .cover{
+    height:155px;
+  }
+
+  .big-cover{
+    width:75vw;
+  }
+
+  .full-controls{
+    gap:12px;
+  }
+
+  .close-player{
+
+    top:
+      calc(
+        10px +
+        env(safe-area-inset-top)
+      );
+
+    right:
+      calc(
+        10px +
+        env(safe-area-inset-right)
+      );
+
+    width:42px;
+    height:42px;
+
+    font-size:24px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- GLASS -->
+
+<div class="glass glass1"></div>
+<div class="glass glass2"></div>
+<div class="glass glass3"></div>
+<div class="glass glass4"></div>
+<div class="glass glass5"></div>
+<div class="glass glass6"></div>
+<div class="glass glass7"></div>
+<div class="glass glass8"></div>
+<div class="glass glass9"></div>
+<div class="glass glass10"></div>
+
+
+<!-- NAV -->
+
+<header class="navbar">
+
+  <div class="logo">
+    Ai<span>Vibe</span>
+  </div>
+
+  <nav>
+
+    <a href="#home">HOME</a>
+    <a href="#discover">DISCOVER</a>
+    <a href="#genres">GENRES</a>
+    <a href="#about">ABOUT</a>
+
+  </nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      AI MUSIC PLATFORM
+    </div>
+
+    <h1>
+
+      THE FUTURE
+
+      <br>
+
+      <span>
+        HAS A VIBE.
+      </span>
+
+    </h1>
+
+    <p>
+      Discover original music
+      created with artificial intelligence.
+    </p>
+
+    <div class="buttons">
+
+      <a
+        href="#discover"
+        class="primary"
+      >
+        EXPLORE MUSIC
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DISCOVER -->
+
+<section class="discover" id="discover">
+
+  <div class="section-title">
+
+    <div class="eyebrow">
+      LATEST RELEASES
+    </div>
+
+    <h2>
+      New sounds.
+    </h2>
+
+  </div>
+
+
+  <div class="tracks">
+
+
+    <div class="track">
+
+      <div class="cover cover1">
+
+        <span>01</span>
+
+        <button
+          class="play"
+          type="button"
+        >
+          ▶
+        </button>
+
+      </div>
+
+      <h3>
+        Neon Graves
+      </h3>
+
+      <p>
+        AiVibe · Dark Trap
+      </p>
+
+    </div>
+
+
+    <div class="track">
+
+      <div class="cover cover2">
+
+        <span>02</span>
+
+        <button
+          class="play"
+          type="button"
+        >
+          ▶
+        </button>
+
+      </div>
+
+      <h3>
+        Afterimage
+      </h3>
+
+      <p>
+        Synthetic Soul · R&B
+      </p>
+
+    </div>
+
+
+    <div class="track">
+
+      <div class="cover cover3">
+
+        <span>03</span>
+
+        <button
+          class="play"
+          type="button"
+        >
+          ▶
+        </button>
+
+      </div>
+
+      <h3>
+        Glass Signal
+      </h3>
+
+      <p>
+        NOVA · Experimental
+      </p>
+
+    </div>
+
+
+    <div class="track">
+
+      <div class="cover cover4">
+
+        <span>04</span>
+
+        <button
+          class="play"
+          type="button"
+        >
+          ▶
+        </button>
+
+      </div>
+
+      <h3>
+        Midnight Protocol
+      </h3>
+
+      <p>
+        VOID · Electronic
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- GENRES -->
+
+<section class="genres" id="genres">
+
+  <div class="eyebrow">
+    EXPLORE
+  </div>
+
+  <h2>
+    Choose your vibe.
+  </h2>
+
+  <div class="genre-list">
+
+    <button>TRAP</button>
+    <button>DARK TRAP</button>
+    <button>R&B</button>
+    <button>HIP-HOP</button>
+    <button>ELECTRONIC</button>
+    <button>AMBIENT</button>
+    <button>EXPERIMENTAL</button>
+    <button>LO-FI</button>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+  <div class="eyebrow">
+    ABOUT AIVIBE
+  </div>
+
+  <h2>
+
+    WHERE AI
+
+    <br>
+
+    MEETS CREATIVITY.
+
+  </h2>
+
+  <p>
+
+    AiVibe is a new generation
+    music platform where artificial
+    intelligence meets creativity.
+
+    A space for strange sounds,
+    dark atmospheres and new ideas.
+
+  </p>
+
+</section>
+
+
+<footer>
+
+  AIVIBE © 2026
+
+</footer>
+
+
+<!-- BOTTOM PLAYER -->
+
+<div
+  class="music-player"
+  id="bottomPlayer"
+>
+
+
+  <div class="player-info">
+
+    <div class="player-cover">
+      ♪
+    </div>
+
+    <div>
+
+      <strong id="songName">
+        No track selected
+      </strong>
+
+      <small id="songArtist">
+        AiVibe · Your Music
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="player-controls"
+    onclick="event.stopPropagation()"
+  >
+
+    <button
+      id="prevBtn"
+      type="button"
+    ></button>
+
+    <button
+      id="mainPlay"
+      class="main-play"
+      type="button"
+    >
+      ▶
+    </button>
+
+    <button
+      id="nextBtn"
+      type="button"
+    ></button>
+
+  </div>
+
+
+  <div
+    class="progress-area"
+    onclick="event.stopPropagation()"
+  >
+
+    <span id="currentTime">
+      0:00
+    </span>
+
+    <input
+      id="progress"
+      type="range"
+      min="0"
+      max="100"
+      value="0"
+      step="0.1"
+    >
+
+    <span id="duration">
+      0:00
+    </span>
+
+  </div>
+
+
+</div>
+
+
+<!-- FULL PLAYER -->
+
+<div
+  class="full-player"
+  id="fullPlayer"
+>
+
+
+  <button
+    class="close-player"
+    id="closePlayer"
+    type="button"
+    aria-label="Close player"
+  >
+    ×
+  </button>
+
+
+  <div class="full-player-content">
+
+
+    <div class="big-cover">
+
+      <span id="bigCoverNumber">
+        ♪
+      </span>
+
+    </div>
+
+
+    <div class="eyebrow">
+      NOW PLAYING
+    </div>
+
+
+    <h2 id="fullSongName">
+      No track selected
+    </h2>
+
+    <p id="fullSongArtist">
+      AiVibe · Your Music
+    </p>
+
+
+    <div class="full-progress">
+
+      <div class="full-progress-times">
+
+        <span id="fullCurrentTime">
+          0:00
+        </span>
+
+        <span id="fullDuration">
+          0:00
+        </span>
+
+      </div>
+
+
+      <input
+        id="fullProgress"
+        type="range"
+        min="0"
+        max="100"
+        value="0"
+        step="0.1"
+      >
+
+    </div>
+
+
+    <div class="full-controls">
+
+      <button
+        id="fullPrev"
+        type="button"
+        aria-label="Previous"
+      ></button>
+
+      <button
+        id="fullPlay"
+        type="button"
+        aria-label="Play"
+      >
+        ▶
+      </button>
+
+      <button
+        id="fullNext"
+        type="button"
+        aria-label="Next"
+      ></button>
+
+    </div>
+
+
+    <button
+      class="full-upload"
+      id="fullUpload"
+      type="button"
+    >
+      + UPLOAD MUSIC
+    </button>
+
+
+  </div>
+
+</div>
+
+
+<!-- AUDIO -->
+
+<audio
+  id="audio"
+  preload="metadata"
+></audio>
+
+
+<script>
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const audio =
+  document.getElementById("audio");
+
+const bottomPlayer =
+  document.getElementById("bottomPlayer");
+
+const fullPlayer =
+  document.getElementById("fullPlayer");
+
+const closePlayer =
+  document.getElementById("closePlayer");
+
+const uploadButton =
+  document.getElementById("fullUpload");
+
+const mainPlay =
+  document.getElementById("mainPlay");
+
+const fullPlay =
+  document.getElementById("fullPlay");
+
+const progress =
+  document.getElementById("progress");
+
+const fullProgress =
+  document.getElementById("fullProgress");
+
+const currentTime =
+  document.getElementById("currentTime");
+
+const fullCurrentTime =
+  document.getElementById("fullCurrentTime");
+
+const duration =
+  document.getElementById("duration");
+
+const fullDuration =
+  document.getElementById("fullDuration");
+
+const songName =
+  document.getElementById("songName");
+
+const fullSongName =
+  document.getElementById("fullSongName");
+
+const songArtist =
+  document.getElementById("songArtist");
+
+const fullSongArtist =
+  document.getElementById("fullSongArtist");
+
+const prevBtn =
+  document.getElementById("prevBtn");
+
+const nextBtn =
+  document.getElementById("nextBtn");
+
+const fullPrev =
+  document.getElementById("fullPrev");
+
+const fullNext =
+  document.getElementById("fullNext");
+
+
+let currentURL = null;
+
+let currentArtURL = null;
+
+
+/* =====================================================
+   OPEN FULL PLAYER
+===================================================== */
+
+bottomPlayer.addEventListener(
+  "click",
+  function(){
+
+    fullPlayer.classList.add("open");
+
+  }
+);
+
+
+/* =====================================================
+   CLOSE FULL PLAYER
+===================================================== */
+
+closePlayer.addEventListener(
+  "click",
+  function(e){
+
+    e.stopPropagation();
+
+    fullPlayer.classList.remove("open");
+
+  }
+);
+
+
+fullPlayer.addEventListener(
+  "click",
+  function(e){
+
+    if(e.target === fullPlayer){
+
+      fullPlayer.classList.remove("open");
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   FORMAT TIME
+===================================================== */
+
+function formatTime(seconds){
+
+  if(!Number.isFinite(seconds)){
+    return "0:00";
+  }
+
+  const minutes =
+    Math.floor(seconds / 60);
+
+  const secondsFormatted =
+    Math.floor(seconds % 60)
+      .toString()
+      .padStart(2,"0");
+
+  return (
+    minutes +
+    ":" +
+    secondsFormatted
+  );
+
+}
+
+
+/* =====================================================
+   PLAY BUTTONS
+===================================================== */
+
+function updatePlayButtons(){
+
+  if(audio.paused){
+
+    mainPlay.textContent = "▶";
+    fullPlay.textContent = "▶";
+
+  }else{
+
+    mainPlay.textContent = "❚❚";
+    fullPlay.textContent = "❚❚";
+
+  }
+
+}
+
+
+/* =====================================================
+   SET ALBUM ART
+===================================================== */
+
+function setAlbumArt(imageURL){
+
+  const playerCover =
+    document.querySelector(
+      ".player-cover"
+    );
+
+  const bigCover =
+    document.querySelector(
+      ".big-cover"
+    );
+
+
+  if(currentArtURL){
+
+    URL.revokeObjectURL(
+      currentArtURL
+    );
+
+  }
+
+
+  currentArtURL =
+    imageURL || null;
+
+
+  if(imageURL){
+
+    playerCover.style.backgroundImage =
+      `url("${imageURL}")`;
+
+    bigCover.style.backgroundImage =
+      `url("${imageURL}")`;
+
+    playerCover.classList.add(
+      "has-art"
+    );
+
+    bigCover.classList.add(
+      "has-art"
+    );
+
+  }else{
+
+    playerCover.style.backgroundImage =
+      "";
+
+    bigCover.style.backgroundImage =
+      "";
+
+    playerCover.classList.remove(
+      "has-art"
+    );
+
+    bigCover.classList.remove(
+      "has-art"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   FIND MP3 ALBUM ART
+===================================================== */
+
+async function extractMP3Cover(file){
+
+  try{
+
+    const buffer =
+      await file.arrayBuffer();
+
+    const bytes =
+      new Uint8Array(buffer);
+
+
+    let start = -1;
+    let end = -1;
+    let type = "";
+
+
+    /* JPEG */
+
+    for(
+      let i = 0;
+      i < bytes.length - 3;
+      i++
+    ){
+
+      if(
+        bytes[i] === 0xFF &&
+        bytes[i+1] === 0xD8 &&
+        bytes[i+2] === 0xFF
+      ){
+
+        start = i;
+
+        type =
+          "image/jpeg";
+
+        break;
+
+      }
+
+    }
+
+
+    /* PNG */
+
+    if(start === -1){
+
+      for(
+        let i = 0;
+        i < bytes.length - 8;
+        i++
+      ){
+
+        if(
+          bytes[i] === 0x89 &&
+          bytes[i+1] === 0x50 &&
+          bytes[i+2] === 0x4E &&
+          bytes[i+3] === 0x47 &&
+          bytes[i+4] === 0x0D &&
+          bytes[i+5] === 0x0A &&
+          bytes[i+6] === 0x1A &&
+          bytes[i+7] === 0x0A
+        ){
+
+          start = i;
+
+          type =
+            "image/png";
+
+          break;
+
+        }
+
+      }
+
+    }
+
+
+    if(start === -1){
+
+      setAlbumArt(null);
+
+      return;
+
+    }
+
+
+    /* JPEG END */
+
+    if(type === "image/jpeg"){
+
+      for(
+        let i = start + 2;
+        i < bytes.length - 1;
+        i++
+      ){
+
+        if(
+          bytes[i] === 0xFF &&
+          bytes[i+1] === 0xD9
+        ){
+
+          end =
+            i + 2;
+
+          break;
+
+        }
+
+      }
+
+    }
+
+
+    /* PNG END */
+
+    if(type === "image/png"){
+
+      for(
+        let i = start + 8;
+        i < bytes.length - 8;
+        i++
+      ){
+
+        if(
+          bytes[i] === 0x49 &&
+          bytes[i+1] === 0x45 &&
+          bytes[i+2] === 0x4E &&
+          bytes[i+3] === 0x44 &&
+          bytes[i+4] === 0xAE &&
+          bytes[i+5] === 0x42 &&
+          bytes[i+6] === 0x60 &&
+          bytes[i+7] === 0x82
+        ){
+
+          end =
+            i + 8;
+
+          break;
+
+        }
+
+      }
+
+    }
+
+
+    if(
+      start === -1 ||
+      end === -1
+    ){
+
+      setAlbumArt(null);
+
+      return;
+
+    }
+
+
+    const imageBlob =
+      new Blob(
+        [
+          bytes.slice(
+            start,
+            end
+          )
+        ],
+        {
+          type:type
+        }
+      );
+
+
+    const imageURL =
+      URL.createObjectURL(
+        imageBlob
+      );
+
+
+    setAlbumArt(imageURL);
+
+
+  }catch(error){
+
+    console.log(
+      "Album art error:",
+      error
+    );
+
+    setAlbumArt(null);
+
+  }
+
+}
+
+
+/* =====================================================
+   UPLOAD
+===================================================== */
+
+function openUploader(){
+
+  const input =
+    document.createElement("input");
+
+  input.type = "file";
+
+  input.accept =
+    ".mp3,.wav,.m4a,.aac,.ogg,.webm,audio/*";
+
+
+  input.addEventListener(
+    "change",
+    async function(){
+
+      const file =
+        this.files &&
+        this.files[0];
+
+
+      if(!file){
+        return;
+      }
+
+
+      const fileName =
+        file.name.toLowerCase();
+
+
+      const isAudio =
+        file.type.startsWith("audio/") ||
+        fileName.endsWith(".mp3") ||
+        fileName.endsWith(".wav") ||
+        fileName.endsWith(".m4a") ||
+        fileName.endsWith(".aac") ||
+        fileName.endsWith(".ogg") ||
+        fileName.endsWith(".webm");
+
+
+      if(!isAudio){
+
+        alert(
+          "Please select an audio file."
+        );
+
+        return;
+
+      }
+
+
+      /* OLD AUDIO URL */
+
+      if(currentURL){
+
+        URL.revokeObjectURL(
+          currentURL
+        );
+
+      }
+
+
+      /* OLD ART */
+
+      setAlbumArt(null);
+
+
+      /* CREATE AUDIO URL */
+
+      currentURL =
+        URL.createObjectURL(file);
+
+
+      audio.pause();
+
+      audio.src =
+        currentURL;
+
+      audio.load();
+
+
+      /* FILE NAME */
+
+      const cleanName =
+        file.name
+          .replace(
+            /\.[^/.]+$/,
+            ""
+          );
+
+
+      songName.textContent =
+        cleanName;
+
+      fullSongName.textContent =
+        cleanName;
+
+
+      songArtist.textContent =
+        "AiVibe · Your Upload";
+
+      fullSongArtist.textContent =
+        "AiVibe · Your Upload";
+
+
+      progress.value =
+        0;
+
+      fullProgress.value =
+        0;
+
+
+      currentTime.textContent =
+        "0:00";
+
+      fullCurrentTime.textContent =
+        "0:00";
+
+
+      /*
+        Try to extract real
+        embedded album art.
+      */
+
+      if(
+        fileName.endsWith(".mp3")
+      ){
+
+        await extractMP3Cover(
+          file
+        );
+
+      }
+
+
+      /* PLAY */
+
+      audio.play()
+        .then(function(){
+
+          updatePlayButtons();
+
+        })
+        .catch(function(){
+
+          updatePlayButtons();
+
+        });
+
+    }
+  );
+
+
+  input.click();
+
+}
+
+
+/* =====================================================
+   UPLOAD BUTTON
+===================================================== */
+
+uploadButton.addEventListener(
+  "click",
+  function(e){
+
+    e.stopPropagation();
+
+    openUploader();
+
+  }
+);
+
+
+/* =====================================================
+   PLAY / PAUSE
+===================================================== */
+
+function togglePlay(){
+
+  if(!audio.src){
+
+    openUploader();
+
+    return;
+
+  }
+
+
+  if(audio.paused){
+
+    audio.play();
+
+  }else{
+
+    audio.pause();
+
+  }
+
+}
+
+
+mainPlay.addEventListener(
+  "click",
+  function(e){
+
+    e.stopPropagation();
+
+    togglePlay();
+
+  }
+);
+
+
+fullPlay.addEventListener(
+  "click",
+  function(){
+
+    togglePlay();
+
+  }
+);
+
+
+/* =====================================================
+   TIME UPDATE
+===================================================== */
+
+audio.addEventListener(
+  "timeupdate",
+  function(){
+
+    if(!audio.duration){
+      return;
+    }
+
+
+    const percent =
+      (
+        audio.currentTime /
+        audio.duration
+      ) * 100;
+
+
+    progress.value =
+      percent;
+
+    fullProgress.value =
+      percent;
+
+
+    const time =
+      formatTime(
+        audio.currentTime
+      );
+
+
+    currentTime.textContent =
+      time;
+
+    fullCurrentTime.textContent =
+      time;
+
+  }
+);
+
+
+/* =====================================================
+   METADATA
+===================================================== */
+
+audio.addEventListener(
+  "loadedmetadata",
+  function(){
+
+    const time =
+      formatTime(
+        audio.duration
+      );
+
+
+    duration.textContent =
+      time;
+
+    fullDuration.textContent =
+      time;
+
+  }
+);
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+progress.addEventListener(
+  "input",
+  function(e){
+
+    e.stopPropagation();
+
+    if(!audio.duration){
+      return;
+    }
+
+
+    audio.currentTime =
+      (
+        Number(progress.value) /
+        100
+      ) *
+      audio.duration;
+
+
+    fullProgress.value =
+      progress.value;
+
+  }
+);
+
+
+fullProgress.addEventListener(
+  "input",
+  function(){
+
+    if(!audio.duration){
+      return;
+    }
+
+
+    audio.currentTime =
+      (
+        Number(fullProgress.value) /
+        100
+      ) *
+      audio.duration;
+
+
+    progress.value =
+      fullProgress.value;
+
+  }
+);
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function previousTrack(){
+
+  if(!audio.src){
+    return;
+  }
+
+  audio.currentTime =
+    0;
+
+  audio.play();
+
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function nextTrack(){
+
+  if(!audio.src){
+    return;
+  }
+
+  audio.currentTime =
+    0;
+
+  audio.play();
+
+}
+
+
+prevBtn.addEventListener(
+  "click",
+  function(e){
+
+    e.stopPropagation();
+
+    previousTrack();
+
+  }
+);
+
+
+nextBtn.addEventListener(
+  "click",
+  function(e){
+
+    e.stopPropagation();
+
+    nextTrack();
+
+  }
+);
+
+
+fullPrev.addEventListener(
+  "click",
+  previousTrack
+);
+
+
+fullNext.addEventListener(
+  "click",
+  nextTrack
+);
+
+
+/* =====================================================
+   AUDIO EVENTS
+===================================================== */
+
+audio.addEventListener(
+  "play",
+  updatePlayButtons
+);
+
+audio.addEventListener(
+  "pause",
+  updatePlayButtons
+);
+
+
+audio.addEventListener(
+  "ended",
+  function(){
+
+    mainPlay.textContent =
+      "▶";
+
+    fullPlay.textContent =
+      "▶";
+
+    progress.value =
+      0;
+
+    fullProgress.value =
+      0;
+
+    currentTime.textContent =
+      "0:00";
+
+    fullCurrentTime.textContent =
+      "0:00";
+
+  }
+);
+
+
+/* =====================================================
+   ESC
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(e){
+
+    if(
+      e.key === "Escape" &&
+      fullPlayer.classList.contains(
+        "open"
+      )
+    ){
+
+      fullPlayer.classList.remove(
+        "open"
+      );
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   CLEANUP
+===================================================== */
+
+window.addEventListener(
+  "beforeunload",
+  function(){
+
+    if(currentURL){
+
+      URL.revokeObjectURL(
+        currentURL
+      );
+
+    }
+
+    if(currentArtURL){
+
+      URL.revokeObjectURL(
+        currentArtURL
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
