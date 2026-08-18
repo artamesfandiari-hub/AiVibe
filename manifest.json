@@ -1,0 +1,11 @@
+{
+  "name": "AiVibe",
+  "short_name": "AiVibe",
+  "description": "AI Music Platform",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030303",
+  "theme_color": "#030303",
+  "orientation": "portrait-primary",
+  "scope": "./"
+}
